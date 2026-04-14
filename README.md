@@ -10,9 +10,6 @@ Your goal is to:
 - Design a scoring rule that turns that data into recommendations
 - Evaluate what your system gets right and wrong
 - Reflect on how this mirrors real world AI recommenders
-
-Replace this paragraph with your own summary of what your version does.
-
 ---
 
 ## How The System Works
@@ -23,12 +20,36 @@ Some prompts to answer:
 
 - What features does each `Song` use in your system
   - For example: genre, mood, energy, tempo
+  - A: genre, mood, energy
+
 - What information does your `UserProfile` store
+  - A: genre, mood, energy
+
 - How does your `Recommender` compute a score for each song
+  - A: Each category (ie genre, mood, or energy) has a weight or score associated with it. Each song in our csv dataset, will recieve a total score that represents how well the song matches the user's preference. 
+
+  weights: 
+  {
+    genre: 2.0,
+    mood: 1.0,
+    energy: 1.0 #max from continuous formula,
+  }
+
+  total_score = genre + mood + energy
+
+  max total_score is 4.0
+
 - How do you choose which songs to recommend
+  - A: After ever song gets a total score, the songs with the top scores are recommended in order
 
 You can include a simple diagram or bullet list if helpful.
 
+- Potential Biases
+  - A: No concept of mood proximity ie relaxed is closer in proximity to chill than angry is to chill yet both yeild +0.0 with current binary (true, false) approach of song.mood == target_mood.
+  - A: Small dataset of 20 songs with 12 genres ea genre having 1-2 songs. If the user's fav_genre has only one song, the recommender will always return the same result regardless of mood or energy.
+  - A: Can reccomend the same songs over since no feature to mark if a song has already been seen.
+
+![Demo](demo.png)
 ---
 
 ## Getting Started
